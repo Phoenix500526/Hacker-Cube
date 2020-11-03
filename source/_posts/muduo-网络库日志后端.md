@@ -10,38 +10,31 @@ summary:
 tags: [muduo网络库, 源码剖析, 日志系统, 多线程, C++]
 categories: muduo源码剖析
 ---
-
 #### AsyncLogging.{h，cc} 的实现
-
 AsyncLogging 是整个日志系统的后端线程，其中 `append()` 函数作为前端 Logger 类的输出回调函数。当用户使用如`LOG_DEBUG << "Hello world"`语句时，会将日志信息封装为 Buffer
-
+<!-- more -->
 ```C++
 // AsyncLogging.h 文件(节选)
-class AsyncLogging : noncopyable
-{
+class AsyncLogging : noncopyable{
  public:
   AsyncLogging(const string& basename,
                off_t rollSize,
                int flushInterval = 3);
-  ~AsyncLogging()
-  {
-    if (running_)
-    {
+  ~AsyncLogging() {
+    if (running_) {
       stop();
     }
   }
 
   void append(const char* logline, int len);
 
-  void start()
-  {
+  void start() {
     running_ = true;
     thread_.start();
     latch_.wait();
   }
 
-  void stop() NO_THREAD_SAFETY_ANALYSIS
-  {
+  void stop() NO_THREAD_SAFETY_ANALYSIS {
     running_ = false;
     cond_.notify();
     thread_.join();
@@ -88,22 +81,15 @@ AsyncLogging::AsyncLogging(const string& basename, off_t rollSize, int flushInte
   buffers_.reserve(16);
 }
 
-void AsyncLogging::append(const char* logline, int len)
-{
+void AsyncLogging::append(const char* logline, int len) {
   muduo::MutexLockGuard lock(mutex_);
-  if (currentBuffer_->avail() > len)
-  {
+  if (currentBuffer_->avail() > len) {
     currentBuffer_->append(logline, len);
-  }
-  else
-  {
+  } else {
     buffers_.push_back(std::move(currentBuffer_));
-    if (nextBuffer_)
-    {
+    if (nextBuffer_) {
       currentBuffer_ = std::move(nextBuffer_);
-    }
-    else
-    {
+    } else {
       currentBuffer_.reset(new Buffer); // Rarely happens
     }
     currentBuffer_->append(logline, len);
@@ -111,8 +97,7 @@ void AsyncLogging::append(const char* logline, int len)
   }
 }
 
-void AsyncLogging::threadFunc()
-{
+void AsyncLogging::threadFunc() {
   assert(running_ == true);
   latch_.countDown();
   LogFile output(basename_, rollSize_, false);
@@ -122,31 +107,27 @@ void AsyncLogging::threadFunc()
   newBuffer2->bzero();
   BufferVector buffersToWrite;
   buffersToWrite.reserve(16);
-  while (running_)
-  {
+  while (running_) {
     assert(newBuffer1 && newBuffer1->length() == 0);
     assert(newBuffer2 && newBuffer2->length() == 0);
     assert(buffersToWrite.empty());
     {
       muduo::MutexLockGuard lock(mutex_);
-      if (buffers_.empty())  // unusual usage!
-      {
+      if (buffers_.empty()) { // unusual usage!
         cond_.waitForSeconds(flushInterval_);
       }
       buffers_.push_back(std::move(currentBuffer_));
       currentBuffer_ = std::move(newBuffer1);
       //采用 swap 的方式，将数据移至局部对象 buffersToWrite 中，这样在处理的时候不会产生竞态问题，而且缩短了临界区。这同样也是为了避免日志前端的等待
       buffersToWrite.swap(buffers_);
-      if (!nextBuffer_)
-      {
+      if (!nextBuffer_) {
         nextBuffer_ = std::move(newBuffer2);
       }
     }
 
     assert(!buffersToWrite.empty());
 
-    if (buffersToWrite.size() > 25)
-    {
+    if (buffersToWrite.size() > 25) {
       char buf[256];
       snprintf(buf, sizeof buf, "Dropped log messages at %s, %zd larger buffers\n",
                Timestamp::now().toFormattedString().c_str(),
@@ -156,28 +137,24 @@ void AsyncLogging::threadFunc()
       buffersToWrite.erase(buffersToWrite.begin()+2, buffersToWrite.end());
     }
 
-    for (const auto& buffer : buffersToWrite)
-    {
+    for (const auto& buffer : buffersToWrite) {
       // FIXME: use unbuffered stdio FILE ? or use ::writev ?
       output.append(buffer->data(), buffer->length());
     }
 
-    if (buffersToWrite.size() > 2)
-    {
+    if (buffersToWrite.size() > 2) {
       // drop non-bzero-ed buffers, avoid trashing
       buffersToWrite.resize(2);
     }
 
-    if (!newBuffer1)
-    {
+    if (!newBuffer1) {
       assert(!buffersToWrite.empty());
       newBuffer1 = std::move(buffersToWrite.back());
       buffersToWrite.pop_back();
       newBuffer1->reset();
     }
 
-    if (!newBuffer2)
-    {
+    if (!newBuffer2) {
       assert(!buffersToWrite.empty());
       newBuffer2 = std::move(buffersToWrite.back());
       buffersToWrite.pop_back();
@@ -216,8 +193,7 @@ void AsyncLogging::threadFunc()
 
 ```C++
 //LogFile.h
-class LogFile : noncopyable
-{
+class LogFile : noncopyable {
  public:
   LogFile(const string& basename,
           off_t rollSize,
@@ -232,16 +208,12 @@ class LogFile : noncopyable
 
  private:
   void append_unlocked(const char* logline, int len);
-
   static string getLogFileName(const string& basename, time_t* now);
-
   const string basename_;
   const off_t rollSize_;
   const int flushInterval_;
   const int checkEveryN_;
-
   int count_;
-
   std::unique_ptr<MutexLock> mutex_;
   time_t startOfPeriod_;
   time_t lastRoll_;
@@ -271,54 +243,39 @@ LogFile::LogFile(const string& basename, off_t rollSize, bool threadSafe, int fl
 
 LogFile::~LogFile() = default;
 
-void LogFile::append(const char* logline, int len)
-{
-  if (mutex_)
-  {
+void LogFile::append(const char* logline, int len) {
+  if (mutex_) {
     MutexLockGuard lock(*mutex_);
     append_unlocked(logline, len);
-  }
-  else
-  {
+  } else {
     append_unlocked(logline, len);
   }
 }
 
-void LogFile::flush()
-{
-  if (mutex_)
-  {
+void LogFile::flush() {
+  if (mutex_) {
     MutexLockGuard lock(*mutex_);
     file_->flush();
-  }
-  else
-  {
+  } else {
     file_->flush();
   }
 }
 
-void LogFile::append_unlocked(const char* logline, int len)
-{
+void LogFile::append_unlocked(const char* logline, int len) {
   file_->append(logline, len);
 
-  if (file_->writtenBytes() > rollSize_)
-  {
+  if (file_->writtenBytes() > rollSize_) {
     rollFile();
-  }
-  else
-  {
+  } else {
     ++count_;
-    if (count_ >= checkEveryN_)
-    {
+    if (count_ >= checkEveryN_) {
       count_ = 0;
       time_t now = ::time(NULL);
       time_t thisPeriod_ = now / kRollPerSeconds_ * kRollPerSeconds_;
-      if (thisPeriod_ != startOfPeriod_)
-      {
+      if (thisPeriod_ != startOfPeriod_) {
         rollFile();
       }
-      else if (now - lastFlush_ > flushInterval_)
-      {
+      else if (now - lastFlush_ > flushInterval_) {
         lastFlush_ = now;
         file_->flush();
       }
@@ -326,14 +283,12 @@ void LogFile::append_unlocked(const char* logline, int len)
   }
 }
 
-bool LogFile::rollFile()
-{
+bool LogFile::rollFile() {
   time_t now = 0;
   string filename = getLogFileName(basename_, &now);
   time_t start = now / kRollPerSeconds_ * kRollPerSeconds_;
 
-  if (now > lastRoll_)
-  {
+  if (now > lastRoll_) {
     lastRoll_ = now;
     lastFlush_ = now;
     startOfPeriod_ = start;
@@ -343,8 +298,7 @@ bool LogFile::rollFile()
   return false;
 }
 
-string LogFile::getLogFileName(const string& basename, time_t* now)
-{
+string LogFile::getLogFileName(const string& basename, time_t* now){
   string filename;
   filename.reserve(basename.size() + 64);
   filename = basename;
