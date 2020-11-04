@@ -7,8 +7,8 @@ mathjax: true
 date: 2020-11-03 22:47:50
 password:
 summary:
-tags: [muduo网络库, 源码剖析, 日志系统, 多线程, C++]
-categories: muduo源码剖析
+tags: [muduo网络库, 日志系统, 多线程, C++]
+categories: 源码剖析
 ---
 #### 前言
 muduo 网络库源码剖析系列的第二篇文章，主要着眼于 muduo 网络库中的日志系统后端的设计与实现

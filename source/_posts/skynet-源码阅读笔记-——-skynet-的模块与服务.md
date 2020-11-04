@@ -7,8 +7,8 @@ mathjax: true
 date: 2020-11-04 17:09:27
 password:
 summary:
-tags: [源码剖析, skynet框架, 动态库]
-categories: skynet源码剖析
+tags: [skynet框架, 动态库, C语言]
+categories: 源码剖析
 ---
 
 #### 文前导读

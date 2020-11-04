@@ -7,8 +7,8 @@ mathjax: true
 date: 2020-11-03 20:52:36
 password:
 summary:
-tags: [muduo网络库, 源码剖析, 日志系统, C++ ]
-categories: muduo源码剖析
+tags: [muduo网络库, 日志系统, C++ ]
+categories: 源码剖析
 ---
 #### 前言
 muduo 网络库源码剖析系列的第一篇文章，主要着眼于 muduo 网络库中的日志系统前端的设计与实现
@@ -469,7 +469,7 @@ muduo 的日志前端采用了流式风格进行打印，其好处有两个：
    #endif
      return ::std::static_pointer_cast<To>(f);
    }
-    ```
+  ```
     先来说说 `implicit_cast`，这个函数模板主要的功能是用来代替 static_cast 来实现类继承体系中的向上转型(up-cast)。**static_cast 在类的继承体系之间的类型转换时并不进行类型检查**，这会导致一些问题，例如：
    ```C++
    class Top{};
@@ -548,7 +548,7 @@ muduo 的日志前端采用了流式风格进行打印，其好处有两个：
      return p - buf;
    }
    ```
-   
+
    在这段代码中，比较巧妙的是采用了一个对称的 digits 数组来解决负数边界转换的问题。这里有一点需要指出，在 C99 标准之前，C 语言对负数的取余操作是 implementation-defined 的。但是在 C99 标准中规定了对负数取余时，商是向零取整。而 C++11 也采用了类似 C99 的表述，因此上述代码行为是可预期的。
 
 
