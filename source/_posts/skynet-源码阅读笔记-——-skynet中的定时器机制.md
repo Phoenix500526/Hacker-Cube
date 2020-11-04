@@ -264,7 +264,7 @@ static void timer_shift(struct timer *T) {
 ```
 在上述代码中，可以看到每调用一次 `timer_shift`， `time`就会自增 1，而 `skynet_updatetime` 中一共执行了 diff 次 `timer_shift`。因此 `time` 代表了**从 timer 启动后至今一共经历了多少次 tick(一次 tick 的长度为 10ms)**。而且从 `timer_shift` 函数我们可以看出`time`和`near`数组以及`t`数组关系：
 <div style="text-align:center">
- <img src="http://qj9elheb0.hn-bkt.clouddn.com/time%20%E4%B8%8E%20near%20%E4%BB%A5%E5%8F%8A%20t%20%E7%9A%84%E5%85%B3%E7%B3%BB.png"/>
+ <img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/6f6e7aab-276f-40d8-9478-1b01b0a161f1.png"/>
 </div>
 <div class="image-caption" align="center">time 与 near 以及 t 的关系</div>
 

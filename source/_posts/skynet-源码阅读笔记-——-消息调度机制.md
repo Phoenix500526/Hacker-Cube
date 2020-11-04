@@ -50,7 +50,7 @@ struct global_queue {
 
 skynet 的消息队列形式如下：
 <div style="text-align:center">
- <img src="http://qj9elheb0.hn-bkt.clouddn.com/%E4%BA%8C%E7%BA%A7%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97.png" width=800 height=505/>
+ <img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/ab37e981-0cf0-41fe-b6a3-f1224e647254.png" width=800 height=505/>
 </div>
 <div class="image-caption" align="center">二级消息队列</div>
 
@@ -94,7 +94,7 @@ struct remote_message {
 #### 谁生产，谁消费？
 在 skynet 中，每个服务都拥有自己的一个次级消息队列。一个服务给另一个服务发送消息的过程，本质上就是将一个 skynet_message 压入到目标服务的次级消息队列当中。当一个服务的次级消息队列非空时，skynet 会将其push 到全局消息队列当中。而消息的消费，则是由线程池中的 worker 线程来完成，其大致的框图如下：
 <div style="text-align:center">
- <img src="http://qj9elheb0.hn-bkt.clouddn.com/%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E7%AE%A1%E7%90%86%E8%80%85%E6%A8%A1%E5%9E%8B.png" width=800 height=366/>
+ <img src="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/6f4da700-c368-4281-aeef-e77435bff871.png" width=800 height=366/>
 </div>
 <div class="image-caption" align="center">生产者消费者管理者模型</div>
 
