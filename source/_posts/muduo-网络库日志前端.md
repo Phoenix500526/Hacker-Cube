@@ -10,6 +10,12 @@ summary:
 tags: [muduo网络库, 源码剖析, 日志系统, C++ ]
 categories: muduo源码剖析
 ---
+#### 前言
+muduo 网络库源码剖析系列的第一篇文章，主要着眼于 muduo 网络库中的日志系统前端的设计与实现
+为了保证自己对 muduo 的代码有较为深入的理解，我自己写了一个 tmuduo 网络库，用来验证自己对 muduo 源码上的一些想法。
+仓库地址为：git@github.com:Phoenix500526/Tmuduo.git，欢迎 fork、start 以及 follow，一起学习。
+
+<!-- more -->
 
 #### muduo 网络库日志模块简介
 
@@ -23,8 +29,6 @@ muduo 网络库中提供了一个高效的异步日志模块，其本质是一�
 1. 使用一个全局的 AsyncLogging 指针，指向一个初始化好 AsyncLogging 对象
 2. 调用 Logger 类的静态成员函数 `setOutput()`，将 AsyncLogging 对象的 `append()` 函数注册到 Logger 类当中
 3. 用户使用对应的日志宏进行日志的输出
-
-<!-- more -->
 
 #### 前端源码及亮点
 

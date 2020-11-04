@@ -10,6 +10,12 @@ summary:
 tags: [muduo网络库, 源码剖析, 日志系统, 多线程, C++]
 categories: muduo源码剖析
 ---
+#### 前言
+muduo 网络库源码剖析系列的第二篇文章，主要着眼于 muduo 网络库中的日志系统后端的设计与实现
+为了保证自己对 muduo 的代码有较为深入的理解，我自己写了一个 tmuduo 网络库，用来验证自己对 muduo 源码上的一些想法。
+仓库地址为：git@github.com:Phoenix500526/Tmuduo.git，欢迎 fork、start 以及 follow，一起学习。
+
+<!-- more -->
 #### AsyncLogging.{h，cc} 的实现
 AsyncLogging 是整个日志系统的后端线程，其中 `append()` 函数作为前端 Logger 类的输出回调函数。当用户使用如`LOG_DEBUG << "Hello world"`语句时，会将日志信息封装为 Buffer
 <!-- more -->
