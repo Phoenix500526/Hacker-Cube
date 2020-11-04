@@ -1,7 +1,7 @@
 ﻿# Header-菜单
 menu:
   主页: /
-  技术笔记: https://zhousiwei.gitee.io/ibooks/
+  #技术笔记: https://zhousiwei.gitee.io/ibooks/
   随笔: /tags/随笔/
 
 # subNav-子导航
@@ -98,8 +98,8 @@ share_jia: true
 # 具体请参考wiki：https://github.com/JoeyBling/hexo-theme-yilia-plus/wiki
 
 # 1、畅言
-changyan_appid: false
-changyan_conf: false
+changyan_appid: cyv8BdI7z
+changyan_conf: 8b7a3e6eba4d6f0f3e59ab236594167b
 
 # 2、Disqus 在hexo根目录的config里也有disqus_shortname字段，优先使用yilia-plus的
 disqus: false
@@ -172,7 +172,7 @@ copyright_type: 2
 copyright_text: 
 
 # 网站成立年份(默认为 2018，若填入年份小于当前年份，则显示为 2018-2019 类似的格式)
-since: 2018
+since: 2020
 
 # Progress Bar | 页面加载进度条
 # Demo: http://github.hubspot.com/pace/docs/welcome/
@@ -219,11 +219,11 @@ snow: false
 ## https://github.com/JoeyBling/live2d-widget.js
 live2d:
   # (关闭请设置为false)
-  enable: false
+  enable: true
   # 模型名称(取值请参考：https://github.com/JoeyBling/hexo-theme-yilia-plus/wiki/live2d%E6%A8%A1%E5%9E%8B%E5%8C%85%E5%B1%95%E7%A4%BA)
   model: hibiki
   display:
-    position: right # 显示位置：left/right(default: 'right')
+    position: left # 显示位置：left/right(default: 'right')
     width: 145  # 模型的长度(default: 150)
     height: 315 # 模型的高度(default: 300)
     hOffset: 50 # 水平偏移(default: 0)
@@ -232,7 +232,7 @@ live2d:
     show: false # 是否在移动设备上显示(default: true)
     scale: 0.6 # 移动设备上的缩放(default: 0.5)
   react:
-    opacity: 0.8 # 模型透明度(default: 0.7)
+    opacity: 0.9 # 模型透明度(default: 0.7)
 
 # 样式定制 - 一般不需要修改，除非有很强的定制欲望…
 style:
@@ -281,4 +281,4 @@ friends:
     url: https://blog.csdn.net/qq_30930805
 
 # 关于我
-aboutme: 主要涉及技术：<br>Java后端开发、聚合支付、<br>公众号开发、开源爱好者、Linux<br><br>联系QQ:2434387555<br><br>很惭愧<br><br>只做了一点微小的工作<br>谢谢大家
+aboutme: 主要涉及技术：<br>C++ 后端开发、聚合支付、<br>开源爱好者、Linux<br><br>联系QQ:519788069<br><br>很惭愧<br><br>只做了一点微小的工作<br>谢谢大家

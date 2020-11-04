@@ -1,6 +1,6 @@
 .article-entry pre,
 .article-entry .highlight {
-  background: #1a0139;
+  background: #000000;
   margin: 10px 0;
   padding: 10px 10px;
   overflow: hidden;
@@ -71,7 +71,8 @@
 }
 
 .article-entry code {
-  background: #eee;
+  /*background: #eee;*/
+  background: #000;
   padding: 0 0.3em;
   border: none;
 }
