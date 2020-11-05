@@ -2,7 +2,7 @@
 menu:
   主页: /
   #技术笔记: https://zhousiwei.gitee.io/ibooks/
-  源码剖析: /categories/源码剖析
+  #源码剖析: /categories/源码剖析
   学而时嬉之: /categories/学而时嬉之/
 
 # subNav-子导航
