@@ -8,9 +8,9 @@ date: 2020-11-03 22:47:50
 password:
 summary:
 tags: [muduo网络库, 日志系统, 多线程, C++]
-categories: 源码剖析
+categories: muduo源码剖析
 ---
-#### 前言
+#### 文前导读
 muduo 网络库源码剖析系列的第二篇文章，主要着眼于 muduo 网络库中的日志系统后端的设计与实现
 为了保证自己对 muduo 的代码有较为深入的理解，我自己写了一个 tmuduo 网络库，用来验证自己对 muduo 源码上的一些想法。
 仓库地址为：git@github.com:Phoenix500526/Tmuduo.git，欢迎 fork、start 以及 follow，一起学习。

@@ -8,9 +8,9 @@ date: 2020-11-03 20:52:36
 password:
 summary:
 tags: [muduo网络库, 日志系统, C++ ]
-categories: 源码剖析
+categories: muduo源码剖析
 ---
-#### 前言
+#### 文前导读
 muduo 网络库源码剖析系列的第一篇文章，主要着眼于 muduo 网络库中的日志系统前端的设计与实现
 为了保证自己对 muduo 的代码有较为深入的理解，我自己写了一个 tmuduo 网络库，用来验证自己对 muduo 源码上的一些想法。
 仓库地址为：git@github.com:Phoenix500526/Tmuduo.git，欢迎 fork、start 以及 follow，一起学习。
@@ -251,7 +251,7 @@ Logger::~Logger(){
 * 只能使用编译期常量进行初始化
 * `__thread` 只能修饰全局变量和静态变量，但是不能修饰局部变量或者 class 的普通成员变量
 
-`__thread` 变量在每个线程中都有一份独立实体，各个线程中的变量值互不干扰。利用这个特点，`__thread`关键字常常被用来修饰那些 “值可能会变，带有全局性，但是又不值得用全局锁波保护的变量”。
+`__thread` 变量在每个线程中都有一份独立实体，各个线程中的变量值互不干扰。利用这个特点，`__thread`关键字常常被用来修饰那些 “值可能会变，带有全局性，但是又不值得用全局锁保护的变量”。
 
 Logging.cc 文件中利用 `__thread` 修饰的变量有 `t_errnobuf`，`t_time` 和 `t_lastSecond`。其中 `t_errnobuf` 主要供 `strerror_tl` 函数使用
 

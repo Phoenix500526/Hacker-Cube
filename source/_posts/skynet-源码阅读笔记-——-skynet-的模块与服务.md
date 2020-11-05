@@ -8,7 +8,7 @@ date: 2020-11-04 17:09:27
 password:
 summary:
 tags: [skynet框架, 动态库, C语言]
-categories: 源码剖析
+categories: skynet源码剖析
 ---
 
 #### 文前导读

@@ -8,7 +8,7 @@ date: 2020-11-04 17:15:48
 password:
 summary:
 tags: [skynet框架, lua语言, C语言, 配置文件]
-categories: 源码剖析
+categories: skynet码剖析
 ---
 
 #### 文前导读
