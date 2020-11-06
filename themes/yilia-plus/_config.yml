@@ -12,7 +12,7 @@ subNav:
   # - cnblog: "#"
   # - blog: "#"
   # - csdn: "#"
-  # - rss: "#"
+  - rss: "atom.xml"
   # - zhihu: "#"
   # - qq: "img/2434387555.jpg"
   # - weixin: "img/weixin_.png"
