@@ -43,7 +43,7 @@ C++ 标准中，变量一共有四种不同的存储周期(storage duration)，�
 * `thread_local` 可以修饰非 POD 类型的变量，它会自动调用构造函数和析构函数
 * `thread_local` 除了全局变量以外，还可以修饰局部变量，并且只会在线程生命周期中只会有一个实例。
 
-综上所述，如果你使用 C++11 标准进行开发，使用 `thread_local` 会比使用 `__thread` 要好用不少。
+综上所述，如果你使用 C++11 标准进行开发，使用 `thread_local` 会比使用 `__thread` 要好用不少。实际上在 muduo 网络库的源代码中，陈硕使用了 `ThreadLocal` 类来绕开了 `__thread` 无法自动调用构造函数和析构函数的限制，而在我的 tmuduo 中，由于使用 `thread_local`, 因此不在需要实现 `ThreadLocal` 类。在 tmuduo 的 test/ThreadLocal_test.cc 文件中，我对 `thread_local` 代替 `ThreadLocal` 进行了测试，效果还是不错的，有兴趣的可以自行查看代码。另外，由于 C++11 标准的保证，使用 `thread_local` 实现线程局部单例模式很非常的方便，不过由于脱离本篇内容范畴，因此我将其放在后面和单例模式一起探讨。
 
 
 #### 二、一种更好的标识线程的方法
