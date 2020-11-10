@@ -154,9 +154,9 @@ clickLove:
   enable: true
 
 # GitHub Ribbons(https://github.blog/2008-12-19-github-ribbons/)
-github:
+#github:
   # (关闭请设置为false)
-  url: https://github.com/JoeyBling/hexo-theme-yilia-plus
+  #url: https://github.com/JoeyBling/hexo-theme-yilia-plus
 
 # 页脚 Litten(此配置项已弃用)
 # 帮助我们让更多人可以更方便使用Hexo，请尽量不要修改此主题配置
@@ -220,7 +220,7 @@ snow: false
 ## https://github.com/JoeyBling/live2d-widget.js
 live2d:
   # (关闭请设置为false)
-  enable: true
+  enable: false
   # 模型名称(取值请参考：https://github.com/JoeyBling/hexo-theme-yilia-plus/wiki/live2d%E6%A8%A1%E5%9E%8B%E5%8C%85%E5%B1%95%E7%A4%BA)
   model: hibiki
   display:

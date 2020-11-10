@@ -1,5 +1,5 @@
 ---
-title: 对 muduo 网络库异常对象的实践与思考
+title: 对 muduo 网络库异常对象的思考与实践
 top: false
 cover: false
 toc: true
