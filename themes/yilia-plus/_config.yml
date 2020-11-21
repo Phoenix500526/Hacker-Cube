@@ -138,6 +138,9 @@ busuanzi:
   site_visit: true  # 站点访问量显示
   article_visit: true  # 文章访问量显示
 
+sitemap:
+  path: sitemap.xml
+
 # 网易云音乐插件
 music:
   enable: false
