@@ -129,7 +129,7 @@ int main(){
 使用`make_shared`可以替代`new`表达式来构造`shared_ptr`对象，进而降低指向同一对象的`shared_ptr`出现`Control Block`不一致的问题。但这种作法并非万无一失，因为最常被用来构造`shared_ptr`对象的指针除了`new`句柄，也包括了`this`指针，例如：
 
 ```C++
-std::vector<shared<Object>> vec;
+std::vector<shared_ptr<Object>> vec;
 class Object{
 public:
     void Process(){
