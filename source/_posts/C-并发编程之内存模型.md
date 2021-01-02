@@ -11,7 +11,7 @@ tags: [C++ 并发编程, C++ 内存模型]
 categories: C++沉思录
 ---
 
-#### 文前导读
+### 文前导读
 
 本文旨在对 C++11 中引入的内存模型，特别是内存序的部分进行一些深入的探讨，主要包含了以下内容
 
@@ -38,14 +38,12 @@ categories: C++沉思录
 
 <!-- more -->
 
-#### 关于 C++11 的内存模型
+### 关于 C++11 的内存模型
 ##### 内存模型的重要性
 纵观计算机的发展史，多线程概念的提出要远慢于操作系统和编译器的实现。在多线程提出以前，编译器和操作系统认为程序当中仅有一个执行流，很多编译器以及处理器的优化都建立在这个假设之上。而在多线程程序大行其道的今天，这种假设已经不再成立。编译器以及处理器的优化可能会对多线程程序的运行造成影响，主要体现在以下几方面：
-
 > * 因编译器的优化而导致的指令重排：
 > * CPU 的乱序执行
 > * 多核 CPU 的 Cache 不一致问题
-
 一些编译器，如 gcc 在编译代码时可以通过 `-O` 参数来指定优化级别，而其中就包含了指令重排的优化。例如 gcc 可以将程序中彼此没有依赖关系的访问内存操作放在一起，并为其生成相应的汇编代码。
 
 对于 CPU 而言，存在乱序执行的一个直观例子就是计算机组成原理中，在讲解流水线时所提到的数据冒险。
@@ -66,7 +64,7 @@ categories: C++沉思录
 ##### 内存模型是什么？
 C++11 中的内存模型**本质上是一套行为规范**，它包括了两个层面的内容，一个是结构层面的内容 —— 内存布局，描述了在语言视角下数据是如何存放于内存当中，另一个是并发层面的内容 —— 内存序， 描述**一个线程对某个共享对象的修改何时能够被其他线程看到**。而编译器在对 C++ 11 下的多线程程序进行编译及优化时，必须遵守这一套行为规范，特别是其中关于内存序的要求。
 
-#### C++ 内存模型之内存布局
+### C++ 内存模型之内存布局
 
 在 C++ 中，所有的数据都是对象，而所谓的对象就是一片有属性的内存区域，其中属性包括了对象的类型以及生命周期能。不论对象的类型是什么，一个对象都必然占据一个或多个内存位置(Memory Location)。
 
@@ -96,7 +94,7 @@ struct my_data{
 <div class="image-caption" align="center">Memory Layout</div>
 
 
-#### C++ 内存模型之内存序
+### C++ 内存模型之内存序
 
 ##### 操作间的关系
 
@@ -288,30 +286,24 @@ void read_y_then_x(){
 #include <assert.h>
 std::atomic<bool> x,y;
 std::atomic<int> z;
-
 void write_x(){
     x.store(true, std::memory_order_seq_cst);
 }
- 
 void write_y(){
     y.store(true, std::memory_order_seq_cst);
 }
- 
-void read_x_then_y()
-{
+void read_x_then_y(){
     while (!x.load(std::memory_order_seq_cst));
     if (y.load(std::memory_order_seq_cst)) {
         ++z;
     }
 }
- 
 void read_y_then_x(){
     while (!y.load(std::memory_order_seq_cst));
     if (x.load(std::memory_order_seq_cst)) {
         ++z;
     }
 }
- 
 int main(){
     x=false;
 	y=false;
@@ -342,7 +334,7 @@ C++ 并发编程困难不仅在于开发人员需要捋清不同线程之间复�
 
 
 
-#### 内存栅栏(Memory Fence)
+### 内存栅栏(Memory Fence)
 
 在 C++ 中，除了使用原子操作指定内存序以外，还可以通过内存栅栏来指定内存序。根据指定都能内存序的不同，fence 可以分成以下三类：
 
@@ -413,7 +405,7 @@ void read_y_then_x(){
 
 
 
-#### Reference
+### Reference
 
 [0]. [《Threads Cannot be Implemented as a Library》—— Hans-J. Boehm](https://www.hpl.hp.com/techreports/2004/HPL-2004-209.pdf)
 
